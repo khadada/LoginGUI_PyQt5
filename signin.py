@@ -10,7 +10,13 @@ class LogInGUI(QWidget):
         self.initialize_ui()
         self.show()
     def initialize_ui(self):
-        pass
+        """
+        initialize neccesary widget in the screen.
+        """
+        self.setGeometry(0, 0, 539, 741)
+        self.setWindowTitle("Login v 1.0")
+        self.setStyleSheet("background-color:rgb(250, 250, 250)")
+        
 
 # execution code for this gui
 if __name__ == "__main__":
