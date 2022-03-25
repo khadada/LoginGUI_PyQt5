@@ -1,11 +1,11 @@
 # Importing necessary modules
 import sys
-from PyQt5.QtWidgets import(QApplication, QWidget, QLabel, QPushButton, QLineEdit,QMessageBox)
+from tabnanny import check
+from PyQt5.QtWidgets import(QApplication, QWidget, QLabel, QPushButton, QLineEdit,QMessageBox,QCheckBox)
 from PyQt5.QtGui import QPixmap #=> To work with icons
 from PyQt5.QtGui import QFont
+from PyQt5.QtCore import Qt
 # our login gui
-# VARIABLES
-
 class LogInGUI(QWidget):
     PRIMARY_COLOR = "#E48700"
     SECONDARY_COLOR = "#4285F4"
@@ -66,6 +66,13 @@ class LogInGUI(QWidget):
         self.password_entry.setStyleSheet(f"padding:10px 20px;border-radius:4px;background-color:#FFFFFF;border: 1px solid {LogInGUI.BORDER_COLOR}")
         self.password_entry.setPlaceholderText("Password")
         
+        # ------- CheckBox for showing the password:
+        show_password_cb = QCheckBox("Show the password",self)
+        show_password_cb.move(44, 544)
+        show_password_cb.stateChanged.connect(self.show_password)
+        show_password_cb.toggle()
+        show_password_cb.setChecked(False)
+        
         # ------ Forget password: btn
         forget_btn = QPushButton("forget PASSWORD",self)
         forget_btn.setFont(QFont("Tahoma",9))
@@ -96,6 +103,13 @@ class LogInGUI(QWidget):
             event.accept()
         else:
             event.ignore()
+    def show_password(self,state):
+        if state == Qt.Checked:
+            self.password_entry.setEchoMode(QLineEdit.Normal)
+        else:
+            self.password_entry.setEchoMode(QLineEdit.Password)
+            
+        
             
 
 # execution code for this gui
