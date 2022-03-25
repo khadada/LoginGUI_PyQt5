@@ -1,6 +1,6 @@
 # Importing necessary modules
 import sys
-from PyQt5.QtWidgets import(QApplication, QWidget, QLabel, QPushButton, QLineEdit)
+from PyQt5.QtWidgets import(QApplication, QWidget, QLabel, QPushButton, QLineEdit,QMessageBox)
 from PyQt5.QtGui import QPixmap #=> To work with icons
 from PyQt5.QtGui import QFont
 # our login gui
@@ -20,6 +20,7 @@ class LogInGUI(QWidget):
         initialize neccesary widget in the screen.
         """
         self.setGeometry(0, 0, 539, 741)
+        self.setFixedSize(539, 741)
         self.setWindowTitle("Login v 1.0")
         self.setStyleSheet("background-color:rgb(250, 250, 250)")
         # display widgets in the screen:
@@ -88,7 +89,14 @@ class LogInGUI(QWidget):
         signup_btn.setFont(QFont("Tahoma",9))
         signup_btn.setStyleSheet(f"background-color:transparent;color:{LogInGUI.PRIMARY_COLOR}")
     
-        
+        # Change Close Event behavoir
+    def closeEvent(self, event):
+        sure_to_close = QMessageBox.question(self,"Sure to Close","Are you sure you need to close the program",QMessageBox.Cancel,QMessageBox.Yes)
+        if sure_to_close == QMessageBox.Yes:
+            event.accept()
+        else:
+            event.ignore()
+            
 
 # execution code for this gui
 if __name__ == "__main__":
