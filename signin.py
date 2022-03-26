@@ -95,7 +95,7 @@ class LogInGUI(QWidget):
         signup_btn.move(410, 70)
         signup_btn.setFont(QFont("Tahoma",9))
         signup_btn.setStyleSheet(f"background-color:transparent;color:{LogInGUI.PRIMARY_COLOR}")
-        signin_btn.clicked.connect(self.sigin_up)
+        signup_btn.clicked.connect(self.create_account)
         # Change Close Event behavoir
     def closeEvent(self, event):
         sure_to_close = QMessageBox.question(self,"Sure to Close","Are you sure you need to close the program",QMessageBox.Cancel,QMessageBox.Yes)
@@ -138,11 +138,12 @@ class LogInGUI(QWidget):
                 open('data/users.txt',"w")                               
         else:
             QMessageBox.warning(self,"Empty Error","All field are required!",QMessageBox.Ok)
-    def sigin_up(self):
+    def create_account(self):
         """
         This method popup new window to allow the to create new user.
         """
-        print("Comming soon...")        
+        print("Comming soon...")              
+        #QMessageBox.information(self,"Successful login by [Email]","You login with success. ",QMessageBox.Ok)
         
             
 
