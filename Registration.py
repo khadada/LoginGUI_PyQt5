@@ -108,4 +108,17 @@ class AddUserWindow(QWidget):
         signin_btn.resize(236, 54)
         signin_btn.setStyleSheet(f"background-color:{AddUserWindow.PRIMARY_COLOR};color:#fff;border-radius:4px")
     def back_to_signin(self):
+        """
+        Close the signup window to back to sigin window
+        """
         self.close()
+    def closeEvent(self, event):
+        """
+        Confirm that the user need to close the program.
+        """
+        sure_to_close = QMessageBox.question(self,"Sure to Close","Are you sure you need to close signup window",QMessageBox.Cancel,QMessageBox.Yes)
+        if sure_to_close == QMessageBox.Yes:
+            event.accept()
+        else:
+            event.ignore()
+        
