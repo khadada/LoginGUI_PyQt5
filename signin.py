@@ -1,10 +1,10 @@
 # Importing necessary modules
 import sys
-from tabnanny import check
 from PyQt5.QtWidgets import(QApplication, QWidget, QLabel, QPushButton, QLineEdit,QMessageBox,QCheckBox)
 from PyQt5.QtGui import QPixmap #=> To work with icons
 from PyQt5.QtGui import QFont
 from PyQt5.QtCore import Qt
+from Registration import AddUserWindow
 # our login gui
 class LogInGUI(QWidget):
     PRIMARY_COLOR = "#E48700"
@@ -142,8 +142,7 @@ class LogInGUI(QWidget):
         """
         This method popup new window to allow the to create new user.
         """
-        print("Comming soon...")              
-        #QMessageBox.information(self,"Successful login by [Email]","You login with success. ",QMessageBox.Ok)
+        self.add_user = AddUserWindow()              
         
             
 
