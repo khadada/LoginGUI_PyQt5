@@ -40,6 +40,7 @@ class AddUserWindow(QWidget):
         owner_projet_lbl.setStyleSheet(f'color:{AddUserWindow.PRIMARY_COLOR}')
         
         
+        
         have_account_lbl = QLabel("Have an Account ?",self)
         have_account_lbl.move(410, 50)
         have_account_lbl.setFont(QFont("Tahoma",9))
@@ -48,7 +49,7 @@ class AddUserWindow(QWidget):
         signin_btn.move(410, 70)
         signin_btn.setFont(QFont("Tahoma",9))
         signin_btn.setStyleSheet(f"background-color:transparent;color:{AddUserWindow.PRIMARY_COLOR}")
-        
+        signin_btn.clicked.connect(self.back_to_signin)
         
         # -------- Username or Email field
         email_lbl = QLabel('Enter your email address',self)
@@ -104,4 +105,5 @@ class AddUserWindow(QWidget):
         signin_btn.move(259, 608)
         signin_btn.resize(236, 54)
         signin_btn.setStyleSheet(f"background-color:{AddUserWindow.PRIMARY_COLOR};color:#fff;border-radius:4px")
-        
+    def back_to_signin(self):
+        self.close()
