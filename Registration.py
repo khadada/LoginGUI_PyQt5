@@ -72,6 +72,7 @@ class AddUserWindow(QWidget):
         self.username_entry.resize(216, 57)
         self.username_entry.move(44, 361)
         self.username_entry.setFont(QFont("Tahoma",12))
+        self.username_entry.setPlaceholderText("Username")
         self.username_entry.setStyleSheet(f"padding:10px 20px;border-radius:4px;background-color:#FFFFFF;border: 1px solid {AddUserWindow.BORDER_COLOR}")
         
         
@@ -84,6 +85,7 @@ class AddUserWindow(QWidget):
         self.contact_num.resize(216, 57)
         self.contact_num.move(279, 361)
         self.contact_num.setFont(QFont("Tahoma",12))
+        self.contact_num.setPlaceholderText("+213780360303")
         self.contact_num.setStyleSheet(f"padding:10px 20px;border-radius:4px;background-color:#FFFFFF;border: 1px solid {AddUserWindow.BORDER_COLOR}")
 
         
