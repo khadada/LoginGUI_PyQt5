@@ -85,7 +85,7 @@ class LogInGUI(QWidget):
         signin_btn.move(259, 608)
         signin_btn.resize(236, 54)
         signin_btn.setStyleSheet(f"background-color:{LogInGUI.PRIMARY_COLOR};color:#fff;border-radius:4px")
-        
+        signin_btn.clicked.connect(self.login)
         # No account create one 
         no_account_lbl = QLabel("No Account ?",self)
         no_account_lbl.move(410, 50)
@@ -95,7 +95,7 @@ class LogInGUI(QWidget):
         signup_btn.move(410, 70)
         signup_btn.setFont(QFont("Tahoma",9))
         signup_btn.setStyleSheet(f"background-color:transparent;color:{LogInGUI.PRIMARY_COLOR}")
-    
+        signin_btn.clicked.connect(self.sigin_up)
         # Change Close Event behavoir
     def closeEvent(self, event):
         sure_to_close = QMessageBox.question(self,"Sure to Close","Are you sure you need to close the program",QMessageBox.Cancel,QMessageBox.Yes)
@@ -108,7 +108,41 @@ class LogInGUI(QWidget):
             self.password_entry.setEchoMode(QLineEdit.Normal)
         else:
             self.password_entry.setEchoMode(QLineEdit.Password)
-            
+    
+    def login(self):
+        if(self.user_or_email_entry.text() !="" and self.password_entry.text() !="" ):
+            usersbyusername = {}
+            usersbyemail = {}
+            try:
+                with open("data/users.txt") as f:
+                    for line in f:
+                        data = line.split(" | ")
+                        username = data[0]
+                        password = data[1]
+                        email = data[2].strip("\n")
+                        usersbyusername[username] = password
+                        usersbyemail[email] = password
+                    
+                if (self.user_or_email_entry.text() , self.password_entry.text()) in usersbyusername.items():
+                    print("You login using username.")
+                    QMessageBox.information(self,"Successful login by [Username]","You login with success. ",QMessageBox.Ok)
+                elif (self.user_or_email_entry.text() , self.password_entry.text()) in usersbyemail.items():
+                    print("You login using email.")
+                    QMessageBox.information(self,"Successful login by [Email]","You login with success. ",QMessageBox.Ok)
+                else:
+                    print("Username or email or password is incorrect")
+                    QMessageBox.warning(self,"Error login ","Check [Username/Email] or password. ",QMessageBox.Ok)
+                    
+            except FileNotFoundError:
+                print("File Data not found. So we creating one.")
+                open('data/users.txt',"w")                               
+        else:
+            QMessageBox.warning(self,"Empty Error","All field are required!",QMessageBox.Ok)
+    def sigin_up(self):
+        """
+        This method popup new window to allow the to create new user.
+        """
+        print("Comming soon...")        
         
             
 
