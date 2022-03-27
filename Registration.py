@@ -134,13 +134,35 @@ class AddUserWindow(QWidget):
         """
         # Check for the users.txt file
         if (self.contact_num.text()!="" and self.username_entry.text()!="" and self.email_entry.text()!="" and self.password.text()!=""):
+            users_with_name = {}
+            users_with_email = {}
+            line_txt = ''
             try:
-                with open('data/users.txt',"a") as file:
-                    line = f"{self.username_entry.text()} | {self.email_entry.text()} | {self.password.text()}\n"
-                    file.write(line)
+                with open('data/users.txt','r+') as f:
+                    for line in f:
+                        field_info = line.split(" | ")
+                        username = field_info[0]
+                        email = field_info[1]
+                        password = field_info[2].strip("\n")
+                        users_with_name[username] = password
+                        users_with_email[email] = password
+                    # Check If the username email are exist 
+                    if(self.username_entry.text() in users_with_name.keys()):
+                        go_to_login = QMessageBox.information(self,"The User Exist",f"This {self.username_entry.text()} exist in database.\nTry to login",QMessageBox.Yes,QMessageBox.Cancel)
+                        if go_to_login == QMessageBox.Yes:
+                            print("Now you will back to login window")
+                    elif (self.email_entry.text() in users_with_email.keys()):
+                        go_to_login = QMessageBox.information(self,"The Email Exist",f"This {self.email_entry.text()} exist in database.\nTry to login",QMessageBox.Yes,QMessageBox.Cancel)
+                        if go_to_login == QMessageBox.Yes:
+                            print("Now you will back to login window")
+                    else:
+                        line_txt = f"{self.username_entry.text()} | {self.email_entry.text()} | {self.password.text()}\n"
+                        f.write(line_txt)
             except FileNotFoundError:
                 print("The file is not found. Creating file [users.txt]")
-                open('data/users.txt',"w")
+                f = open('data/users.txt',"w")
+                field = f"username | email | password:\n{line_txt}"
+                f.write(field)
         else:
             QMessageBox.warning(self,"Empty Field Error","All field are required!",QMessageBox.Ok)
             

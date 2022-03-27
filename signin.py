@@ -114,12 +114,12 @@ class LogInGUI(QWidget):
             usersbyusername = {}
             usersbyemail = {}
             try:
-                with open("data/users.txt") as f:
+                with open("data/users.txt",'r') as f:
                     for line in f:
                         data = line.split(" | ")
                         username = data[0]
-                        password = data[1]
-                        email = data[2].strip("\n")
+                        email = data[1]
+                        password = data[2].strip("\n")
                         usersbyusername[username] = password
                         usersbyemail[email] = password
                     
@@ -135,7 +135,8 @@ class LogInGUI(QWidget):
                     
             except FileNotFoundError:
                 print("File Data not found. So we creating one.")
-                open('data/users.txt',"w")                               
+                with open('data/users.txt',"w") as f:
+                    f.write("username | email | password╔\n")                               
         else:
             QMessageBox.warning(self,"Empty Error","All field are required!",QMessageBox.Ok)
     def create_account(self):
