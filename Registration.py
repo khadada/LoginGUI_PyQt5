@@ -107,6 +107,7 @@ class AddUserWindow(QWidget):
         signin_btn.move(259, 608)
         signin_btn.resize(236, 54)
         signin_btn.setStyleSheet(f"background-color:{AddUserWindow.PRIMARY_COLOR};color:#fff;border-radius:4px")
+        signin_btn.clicked.connect(self.creat_user_account)
     def back_to_signin(self):
         """
         Close the signup window to back to sigin window
@@ -122,3 +123,17 @@ class AddUserWindow(QWidget):
         else:
             event.ignore()
         
+        
+    def creat_user_account(self):
+        """
+        This method check if user.txt file is found add the user to it. Otherwise create one.
+        """
+        # Check for the users.txt file
+        if (self.contact_num.text()!="" and self.username_entry.text()!="" and self.email_entry.text()!="" and self.password.text()!=""):
+            try:
+                with open('data/users.txt',"a") as file:
+                    line = f"{self.username_entry.text()} | {self.email_entry.text()} | {self.password.text()}\n"
+                    file.write(line)
+            except FileNotFoundError:
+                print("The file is not found. Creating file [users.txt]")
+                open('data/users.txt',"w")
