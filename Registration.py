@@ -39,6 +39,10 @@ class AddUserWindow(QWidget):
         owner_projet_lbl.move(200, 44)
         owner_projet_lbl.setStyleSheet(f'color:{AddUserWindow.PRIMARY_COLOR}')
         
+        signin_lbl = QLabel('Sign Up',self)
+        signin_lbl.setFont(QFont("Tahoma",50))
+        signin_lbl.move(44, 77)
+        
         
         
         have_account_lbl = QLabel("Have an Account ?",self)
@@ -137,3 +141,6 @@ class AddUserWindow(QWidget):
             except FileNotFoundError:
                 print("The file is not found. Creating file [users.txt]")
                 open('data/users.txt',"w")
+        else:
+            QMessageBox.warning(self,"Empty Field Error","All field are required!",QMessageBox.Ok)
+            
